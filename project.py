@@ -1,4 +1,4 @@
-"""Final Project for CS50 Python
+"""Final Project for Harvard's CS50 Python
 Once you have solved each of the course’s problem sets, it’s time to implement your final project, a Python program of your very own! The design and implementation of your project is entirely up to you, albeit subject to these requirements:
 
 Your project must be implemented in Python.
@@ -13,3 +13,12 @@ Any pip-installable libraries that your project requires must be listed, one per
     
     
 print("Hello world")
+
+import tkinter
+
+root = tkinter.Tk()
+root.geometry("400x400")
+ent = tkinter.Entry(master=root, ="Username", show="#")
+ent.pack(pady=50)
+
+tkinter.mainloop()
