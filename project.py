@@ -13,61 +13,83 @@ Any pip-installable libraries that your project requires must be listed, one per
     
     
 import tkinter as ui
+FONT = ("Liberation Sans", 11, "bold")
 
 
 def main():
-    input_patient_info()
-    display_columnar()
+    px_infos = input_patient_info()
+    display_columnar(px_infos)
     wait_for_event()
     save_columnar_as_PDF()
     
 
 def input_patient_info():
     px_UI = ui.Tk()
-    px_UI.geometry("400x400")
+    px_UI.geometry("400x400+20+20") # Size 400x400, Start position at x:20 and y:20
     px_UI.title("Patient's Information Index")
     
+    clinic_logo_frame = ui.Frame(master=px_UI)
+    clinic_logo_frame.grid(row=0, column=0)
+    px_info_frame = ui.Frame(master=px_UI)
+    px_info_frame.grid(row=1, column=0)
+    proceed_frame = ui.Frame(master=px_UI)
+    proceed_frame.grid(row=2, column=0)
+
     # constants for entry widgets
     PADX = 20
-    IPADX = 3
+    IPADX = 2
     PADY = 10
-    IPADY = 1
-    ui.Entry.config
+    IPADY = 2
 
-    # patient's info --------------------------
     
-    # constants for each patient's entry info
+    # constants for each patient's entry info, sample: name_entry[0, 1, 2] or name_entry[WIDGET, VALUE, PLACEHOLDER_VALUE]
     WIDGET = 0
     VALUE = 1
     PLACEHOLDER_VALUE = 2
-    # name[0, 1] or name[WIDGET, VALUE]
-    name = [None, "", "First and Last names"]
-    name[WIDGET] = ui.Entry(master=px_UI)
-    name[WIDGET].insert(0, name[PLACEHOLDER_VALUE])
-    name[WIDGET].grid(padx=PADX, pady=PADY, ipadx=IPADX, ipady=IPADY)
-    
-    def placeholder_text(event):
-        print(event, type(event))
-        name[VALUE] = name[WIDGET].get()
-        print(name[VALUE])
-        if "FocusIn" in str(event) and name[VALUE] == name[PLACEHOLDER_VALUE]:
-            name[WIDGET].delete(0, "end")
-        elif "FocusOut" in str(event) and name[WIDGET].get() == "":
-            name[WIDGET].insert(0, name[PLACEHOLDER_VALUE])
+
+    # tk Entry for each patient's entry info; txtEntry is a list for [0] widget [1] text value and [2] placeholder label
+    def ui_entry(txtEntry):
+        print(txtEntry, type(txtEntry))
+        INPUT_COLOR = "#000000"
+        PLACEHOLDER_COLOR = "#828282"
+        txtEntry[WIDGET] = ui.Entry(master=px_info_frame, fg=PLACEHOLDER_COLOR, font=FONT, width=50)
+        txtEntry[WIDGET].insert(0, txtEntry[PLACEHOLDER_VALUE])
+        txtEntry[WIDGET].pack(padx=PADX, pady=PADY, ipadx=IPADX, ipady=IPADY)
         
+        def placeholder_label(event):
+            event_str = str(event)
+            print(event_str)
+            if "FocusIn" in event_str and txtEntry[WIDGET].get() == txtEntry[PLACEHOLDER_VALUE]:
+                txtEntry[WIDGET].delete(0, "end")
+            elif "FocusOut" in event_str and txtEntry[WIDGET].get() == "":
+                txtEntry[WIDGET].insert(0, txtEntry[PLACEHOLDER_VALUE])
+                txtEntry[WIDGET].config(fg=PLACEHOLDER_COLOR)
+            elif "Key" in event_str or ("Motion" in event_str and not txtEntry[WIDGET].get() in ("", txtEntry[PLACEHOLDER_VALUE])):
+                txtEntry[WIDGET].config(fg=INPUT_COLOR)
+                txtEntry[VALUE] = txtEntry[WIDGET].get()
+                    
+                    
+        txtEntry[WIDGET].bind("<FocusIn>", placeholder_label)
+        txtEntry[WIDGET].bind("<FocusOut>", placeholder_label)
+        txtEntry[WIDGET].bind("<Key>", placeholder_label)
+        txtEntry[WIDGET].bind("<Motion>", placeholder_label)
         
-    name[WIDGET].bind("<FocusIn>", placeholder_text)
-    name[WIDGET].bind("<FocusOut>", placeholder_text)
+        return txtEntry
     
-    # age
-    age = [None, "Age"]
-    age[WIDGET] = ui.Entry(master=px_UI)
-    age[WIDGET].insert(0, age[VALUE])
-    age[WIDGET].grid(padx=PADX, pady=PADY, ipadx=IPADX, ipady=IPADY)
-    # address = input("Contact No: ")
-    # contact_no = input("Occupation: ")
-    # occupation = input("Occupation: ")
-    # date = input("Date: ")
+
+    logo = ui.PhotoImage(file="clinic_logo.png")
+    clinic_label = ui.Label(master=clinic_logo_frame, image=logo)
+    clinic_label.grid(row=0, column=0)
+    
+    # patient's info --------------------------
+
+    name = ui_entry([None, "", "Patient's Fullname"])
+
+    age = ui_entry([None, "", "Age"])
+    address = ui_entry([None, "", "Address"])
+    contact_no = ui_entry([None, "", "Contact Number"])
+    occupation = ui_entry([None, "", "Occupation"])
+    date = ui_entry([None, "", "Date"])
 
     # frames = input("Frames: ")
     # lens = input("Lens: ")
@@ -81,15 +103,29 @@ def input_patient_info():
 
     # sales_staff = input("Sales Staff: ")
     # doctor = input("Doctor: ")
-                  
-    ui.Button(px_UI, text="Exit", command=px_UI.destroy).grid()
+
+    ui.Button(master=proceed_frame, text="Proceed", font=FONT, command=px_UI.destroy).grid(row=0, column=0)
 
     px_UI.mainloop()
     
-    print("name:", name)
+    px_info = (name[VALUE], age[VALUE], address[VALUE], contact_no[VALUE], occupation[VALUE], date[VALUE])
+    
+    print("px_info:", px_info)
+    
+    return px_info
     
     
-def display_columnar():
+def display_columnar(*columns):
+    print("display_colmnar args:", columns)
+    all_columns = str(columns)
+
+    columnarUI = ui.Tk()
+    columnarUI.geometry("700x500+20+20")
+    columnarUI.title("Columnar of Clinic Transactions")
+    
+    ui.Label(master=columnarUI, text=all_columns, font=FONT).grid(pady=10)
+    ui.Button(master=columnarUI, text="Okay", font=FONT, command=columnarUI.destroy).grid(pady=5)
+    columnarUI.mainloop()
     # # sheet/page ---------for columnar
 
     # # header
