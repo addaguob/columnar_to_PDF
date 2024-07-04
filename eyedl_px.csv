@@ -1,0 +1,23 @@
+name,age,address,contact_no,occupation,date,frames,lens,total_amount,deposit,balance,sales_staff,doctor
+Queen Smith,20,"#17  Sapusomo Street, Quezon City",09291234690,Marketing Specialist,2024-06-06 12:42:50,ED9150,F. Only,3000,2500.0,500.0,Ate Berna,Dr. Kryzza
+Sophia Lewis,52,"#110  Sapusomo Street, Makati City",09181234703,Customer Service Representative,2024-06-06 12:42:50,ED955,KK,2000,1500.0,500.0,Ate Berna,Dr. Kim
+Zoe Tan,55,"#115  Sapusomo Street, Quezon City",09221234711,Marketing Specialist,2024-06-06 12:42:51,Own F.,Ord,2000,666.0,1334.0,Ate Bless,Dr. Edz
+Charlie Potter,58,"#78  Sapusomo Street, Quezon City",09291234630,Sales Representative,2024-06-06 12:42:51,PE990,Own F,1000,333.0,667.0,Ate Sanchai,Dr. Kryzza
+Charlie Ulrich,51,"#107  Sapusomo Street, Manila",09221234740,Software Development Engineer,2024-06-06 12:42:52,9100,F. Only,1000,500.0,500.0,Ate Berna,Dr. Jonna
+Olivia Chu,68,"#43  Sapusomo Street, Makati City",09291234654,Customer Service Representative,2024-06-13 18:28:04,ED9150,KK,2000,1500.0,500.0,Ate Berna,Dr. Kim
+Kelly Adams,24,"#48  Sapusomo Street, Caloocan City",09291234685,Customer Service Representative,2024-06-13 18:29:02,ED9150,KK,1000,500.0,500.0,Ate Berna,Dr. Edz
+David Xavier,76,"#72  Sapusomo Street, Quezon City",09221234727,Software Development Engineer,2024-06-13 18:29:06,9100,BB,3000,1000.0,2000.0,Ate Bless,Dr. Kim
+Zoe Potter,36,"#140  Sapusomo Street, Caloocan City",09291234684,Registered Nurse,2024-06-13 18:29:12,PE990,KK,2000,1500.0,500.0,Ate Berna,Dr. Jonna
+Liam Smith,26,"#112  Sapusomo Street, Makati City",09291234708,Customer Service Representative,2024-07-05 04:23:00,Own F.,BB,2000,666.0,1334.0,Ate Sanchai,Dr. Jonna
+David Adams,33,"#66  Sapusomo Street, Makati City",09181234636,Marketing Specialist,2024-07-05 04:23:04,Own F.,F. Only,1000,500.0,500.0,Ate Bless,Dr. Edz
+Eve Valdez,58,"#5  Sapusomo Street, Quezon City",09221234725,Marketing Specialist,2024-07-05 04:23:07,ED9150,Own F,1500,750.0,750.0,Ate Bless,Dr. Jonna
+Ursula Estrada,73,"#23  Sapusomo Street, Makati City",09291234701,Sales Representative,2024-07-05 04:23:09,9100,BTS,3000,2500.0,500.0,Ate Sanchai,Dr. Edz
+Tracy Zamora,15,"#37  Sapusomo Street, Quezon City",09291234714,Software Development Engineer,2024-07-05 04:55:38,Own F.,Ord,4000,2000.0,2000.0,Ate Berna,Dr. Kim
+Bob Irving,46,"#34  Sapusomo Street, Manila",09221234617,Marketing Specialist,2024-07-05 04:55:39,ED9150,Ord,3000,1000.0,2000.0,Ate Bless,Dr. Kim
+Kelly Irving,33,"#119  Sapusomo Street, Caloocan City",09221234733,Registered Nurse,2024-07-05 04:55:40,ED9150,BB,4000,1333.0,2667.0,Ate Bless,Dr. Edz
+Mia Davis,44,"#23  Sapusomo Street, Caloocan City",09181234633,Marketing Specialist,2024-07-05 04:55:41,ED9150,SV,4000,2000.0,2000.0,Ate Bless,Dr. Kryzza
+Noah Estrada,70,"#84  Sapusomo Street, Quezon City",09221234662,Software Development Engineer,2024-07-05 04:55:42,Contact Lens,Own F,1000,333.0,667.0,Ate Bless,Dr. Edz
+Charlie Irving,34,"#59  Sapusomo Street, Makati City",09221234637,Software Development Engineer,2024-07-05 04:55:42,Contact Lens,MC,3000,1000.0,2000.0,Ate Sanchai,Dr. Kryzza
+Frank Ulrich,58,"#70  Sapusomo Street, Makati City",09181234757,Sales Representative,2024-07-05 04:55:43,9100,Prog,3000,1000.0,2000.0,Ate Sanchai,Dr. Kim
+Peter Olsen,29,"#19  Sapusomo Street, Manila",09291234746,Registered Nurse,2024-07-05 04:55:43,ED9150,MC,1000,500.0,500.0,Ate Sanchai,Dr. Edz
+Liam Adams,46,"#141  Sapusomo Street, Manila",09161234633,Marketing Specialist,2024-07-05 04:55:43,ED9500,KK,1000,500.0,500.0,Ate Sanchai,Dr. Kim
