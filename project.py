@@ -23,7 +23,8 @@ FONTBIG = ("Liberation Sans", 11, "bold")
 
 def main():
     px_infos = input_patient_info()
-    display_columnar(px_infos)
+    # display_patients(px_infos)
+    # display_columnar()
     wait_for_event()
     save_columnar_as_PDF()
     
@@ -63,7 +64,7 @@ def input_patient_info():
         print(txtEntry, type(txtEntry))
         txtEntry[WIDGET] = ui.Entry(master=px_info_frameA, fg=PLACEHOLDER_COLOR, font=FONT, width=40)
         txtEntry[WIDGET].insert(0, txtEntry[PLACEHOLDER_VALUE])
-        txtEntry[WIDGET].grid(column=0, padx=PADX, pady=PADY, ipadx=IPADX, ipady=IPADY)
+        txtEntry[WIDGET].pack(padx=PADX, pady=PADY, ipadx=IPADX, ipady=IPADY)
         
         def placeholder_label(event):
             event_str = str(event)
@@ -127,7 +128,23 @@ def input_patient_info():
     occupation = ui_entry([None, "", "Occupation"])
     date = ui_entry([None, "", "Date"])
 
-    frames = ui_entry([None, "", "Frames"])
+    # frames = ui_entry([None, "", "Frames"])
+    ui.Label(px_info_frameB, text="Frames").pack()
+    current_var = ui.StringVar()
+    keepvar = current_var.get
+    frames = ttk.Combobox(px_info_frameB, textvariable=keepvar, values=[
+        "Contact Lens",
+        "Own F.",
+        "9100",
+        "ED955",
+        "ED990",
+        "ED9150",
+        "ED9150",
+        "ED9500",
+        "PE990",
+        "PE9150",
+    ])
+    frames.pack()
     lens = ui_entry([None, "", "Lens"])
     total_amount = ui_entry([None, "", "Total Amount"])
     deposit = ui_entry([None, "", "Deposit Amount"])
@@ -155,25 +172,26 @@ def input_patient_info():
     return px_info
     
     
-def display_columnar(*columns):
+    
+def display_patients(*columns):
     print("display_colmnar args:", columns)
     all_columns = str(columns)
 
-    columnarUI = ui.Tk()
-    columnarUI.geometry("1200x800+20+20")
-    columnarUI.title("Columnar of Clinic Transactions")
+    px_columnarUI = ui.Tk()
+    px_columnarUI.geometry("1450x800+20+20")
+    px_columnarUI.title("Columnar of Clinic Transactions")
     
     # create a notebook to held frames
-    notebook = ttk.Notebook(columnarUI, width=1200, height=700)
+    notebook = ttk.Notebook(px_columnarUI, width=1200, height=500)
 
     # create frames
-    ed_frame1 = ttk.Frame(notebook, width=1100, height=800)
-    pe_frame2 = ttk.Frame(notebook, width=1100, height=800)
+    ed_frame1 = ttk.Frame(notebook, width=1100, height=500)
+    pe_frame2 = ttk.Frame(notebook, width=1100, height=500)
     
     
     def open_csv_file():
         file_path = filedialog.askopenfilename(
-            title="Open CSV File", filetypes=[("CSV files", "*.csv")], initialdir="./")
+            title="Open CSV Database", filetypes=[("CSV Databases", "*.csv")], initialdir="./")
         if file_path:
             display_csv_data(file_path)
 
@@ -193,12 +211,14 @@ def display_columnar(*columns):
                 tree["columns"] = header
                 for column in header:
                     tree.heading(column, text=column)
-                    tree.column(column, width=20 if column in ("age", "lens") else 100 if column!="address" else 200)
+                    tree.column(column, width=20 if column in ("age", "lens") 
+                                else 100 if column not in ("address", "occupation") else 200)
 
                 for row in csv_reader:
                     tree.insert("", "end", values=row)
 
-                status_label.config(text=f"CSV file loaded: {file_path}")
+                status_label.config(
+                    text=f"Patients CSV Database loaded: {file_path}")
 
         except Exception as error:
             status_label.config(text=f"Error: {str(error)}")
@@ -206,7 +226,7 @@ def display_columnar(*columns):
 
     def open_csv_file2():
         file_path = filedialog.askopenfilename(
-            title="Open CSV File", filetypes=[("CSV files", "*.csv")], initialdir="./")
+            title="Open CSV Database", filetypes=[("CSV Databases", "*.csv")], initialdir="./")
         if file_path:
             display_csv_data2(file_path)
 
@@ -226,13 +246,14 @@ def display_columnar(*columns):
                 tree2["columns"] = header
                 for column in header:
                     tree2.heading(column, text=column)
-                    tree2.column(column, width=20 if column in (
-                        "age", "lens") else 100 if column != "address" else 200)
+                    tree2.column(column, width=20 if column in ("age", "lens")
+                                else 100 if column not in ("address", "occupation") else 200)
 
                 for row in csv_reader:
                     tree2.insert("", "end", values=row)
 
-                status_label2.config(text=f"CSV file loaded: {file_path}")
+                status_label2.config(
+                    text=f"Patients CSV Database loaded: {file_path}")
 
         except Exception as error:
             status_label2.config(text=f"Error: {str(error)}")
@@ -245,9 +266,10 @@ def display_columnar(*columns):
 
     # add frames to notebook
     # add first frame
-    notebook.add(ed_frame1, text='Eye Clinic 1')
+    notebook.add(ed_frame1, text='Eye Clinic Patients')
 
-    open_CSV_button = ui.Button(ed_frame1, text="Open CSV File", command=open_csv_file)
+    open_CSV_button = ui.Button(
+        ed_frame1, text="Open Patients CSV Database", command=open_csv_file)
     open_CSV_button.pack(padx=20, pady=10)
 
     tree = ttk.Treeview(ed_frame1, show="headings")
@@ -260,9 +282,10 @@ def display_columnar(*columns):
     display_csv_data(file_path)
 
     # add second frame to notebook
-    notebook.add(pe_frame2, text='Personal Clinic 2')
+    notebook.add(pe_frame2, text='Another Clinic Patients')
 
-    open_CSV_button2 = ui.Button(pe_frame2, text="Open CSV File", command=open_csv_file2)
+    open_CSV_button2 = ui.Button(
+        pe_frame2, text="Open Patients CSV Database", command=open_csv_file2)
     open_CSV_button2.pack(padx=20, pady=10)
 
     tree2 = ttk.Treeview(pe_frame2, show="headings")
@@ -274,7 +297,126 @@ def display_columnar(*columns):
     file_path2 = "personal_px.csv"
     display_csv_data2(file_path2)
     
-    ui.Button(master=columnarUI, text="EXIT COLUMNAR", font=FONTBIG, command=columnarUI.destroy).pack(pady=5)
+    ui.Button(master=px_columnarUI, text="EXIT COLUMNAR", font=FONTBIG, command=px_columnarUI.destroy).pack(pady=5)
+    px_columnarUI.mainloop()
+    ...
+
+
+def display_columnar():
+    columnarUI = ui.Tk()
+    columnarUI.geometry("1200x700+20+20")
+    columnarUI.title("Columnar of Clinic Transactions")
+
+    # create a notebook to held frames
+    notebook = ttk.Notebook(columnarUI, width=1200, height=500)
+
+    # create frames
+    ed_frame1 = ttk.Frame(notebook, width=1200, height=500)
+    pe_frame2 = ttk.Frame(notebook, width=1200, height=500)
+
+    def open_csv_file():
+        file_path = filedialog.askopenfilename(
+            title="Open CSV Database", filetypes=[("CSV Databases", "*.csv")], initialdir="./")
+        if file_path:
+            display_csv_data(file_path)
+
+    def display_csv_data(file_path):
+
+        try:
+            with open(file_path, 'r', newline='') as csvfile:
+                csv_reader = csv.reader(csvfile)
+
+                # Read the header row
+                header = next(csv_reader)
+
+                # Clear the current data
+                tree.delete(*tree.get_children())
+
+                tree["columns"] = header
+                for column in header:
+                    tree.heading(column, text=column)
+                    tree.column(column, width=20 if column in ("age", "lens")
+                                else 40 if column not in ("address", "occupation") else 200)
+
+                for row in csv_reader:
+                    tree.insert("", "end", values=row)
+
+                status_label.config(text=f"CSV Database loaded: {file_path}")
+
+        except Exception as error:
+            status_label.config(text=f"Error: {str(error)}")
+
+    def open_csv_file2():
+        file_path = filedialog.askopenfilename(
+            title="Open CSV Database", filetypes=[("CSV Databases", "*.csv")], initialdir="./")
+        if file_path:
+            display_csv_data2(file_path)
+
+    def display_csv_data2(file_path):
+
+        try:
+            with open(file_path, 'r', newline='') as csvfile:
+                csv_reader = csv.reader(csvfile)
+
+                # Read the header row
+                header = next(csv_reader)
+
+                # Clear the current data
+                tree2.delete(*tree2.get_children())
+
+                tree2["columns"] = header
+                for column in header:
+                    tree2.heading(column, text=column)
+                    tree2.column(column, width=20 if column in ("age", "lens")
+                                 else 40 if column not in ("address", "occupation") else 200)
+
+                for row in csv_reader:
+                    tree2.insert("", "end", values=row)
+
+                status_label2.config(text=f"CSV Database loaded: {file_path}")
+
+        except Exception as error:
+            status_label2.config(text=f"Error: {str(error)}")
+
+    notebook.pack(pady=10, expand=True, side="top", fill="both")
+    ed_frame1.pack(fill='both', expand=True)
+    pe_frame2.pack(fill='both', expand=True)
+
+    # add frames to notebook
+    # add first frame
+    notebook.add(ed_frame1, text='Eye Clinic Transactions')
+
+    open_CSV_button = ui.Button(
+        ed_frame1, text="Open CSV Database", command=open_csv_file)
+    open_CSV_button.pack(padx=20, pady=10)
+
+    tree = ttk.Treeview(ed_frame1, show="headings")
+    tree.pack(padx=20, pady=20, fill="both", expand=True)
+
+    status_label = ui.Label(ed_frame1, text="", padx=20, pady=10)
+    status_label.pack()
+
+    file_path = "eyedl_columnar.csv"
+    display_csv_data(file_path)
+
+    # add second frame to notebook
+    notebook.add(pe_frame2, text='Another Clinic Transactions')
+
+    open_CSV_button2 = ui.Button(
+        pe_frame2, text="Open CSV Database", command=open_csv_file2)
+    open_CSV_button2.pack(padx=20, pady=10)
+
+    tree2 = ttk.Treeview(pe_frame2, show="headings")
+    tree2.pack(padx=20, pady=20, fill="both", expand=True)
+
+    status_label2 = ui.Label(pe_frame2, text="", padx=20, pady=10)
+    status_label2.pack()
+
+    file_path2 = "eyedl2_columnar.csv"
+    display_csv_data2(file_path2)
+
+    ui.Button(master=columnarUI, text="EXIT COLUMNAR",
+              font=FONTBIG, command=columnarUI.destroy).pack(pady=5)
     columnarUI.mainloop()
     # # sheet/page ---------for columnar
 
