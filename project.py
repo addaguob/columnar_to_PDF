@@ -173,7 +173,7 @@ def display_columnar(*columns):
     
     def open_csv_file():
         file_path = filedialog.askopenfilename(
-            title="Open CSV File", filetypes=[("CSV files", "*.csv")])
+            title="Open CSV File", filetypes=[("CSV files", "*.csv")], initialdir="./")
         if file_path:
             display_csv_data(file_path)
 
@@ -206,7 +206,7 @@ def display_columnar(*columns):
 
     def open_csv_file2():
         file_path = filedialog.askopenfilename(
-            title="Open CSV File", filetypes=[("CSV files", "*.csv")])
+            title="Open CSV File", filetypes=[("CSV files", "*.csv")], initialdir="./")
         if file_path:
             display_csv_data2(file_path)
 
