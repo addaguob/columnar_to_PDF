@@ -23,8 +23,8 @@ FONTBIG = ("Liberation Sans", 11, "bold")
 
 def main():
     px_infos = input_patient_info()
-    # display_patients(px_infos)
-    # display_columnar()
+    display_patients(px_infos)
+    display_columnar()
     wait_for_event()
     save_columnar_as_PDF()
     
